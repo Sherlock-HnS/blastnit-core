@@ -1,10 +1,9 @@
 {
-  "ignore": [],
+  "title": "Blastnit Core",
+  "type": "tool",
   "tags": [
     "fun",
-    "roleplay",
-    "scenic"
+    "roleplay"
   ],
-  "title": "Blastnit Core",
-  "type": "tool"
+  "ignore": []
 }
