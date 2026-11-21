@@ -1,0 +1,278 @@
+[
+  {
+    "path": "lua/autorun/load_addon.lua",
+    "size": 2381,
+    "crc": 1128094341,
+    "sha256": "bc7f6b793f0a1fe6a65ac27929a8f6fed5a6f78179871155d9afce05c6387044"
+  },
+  {
+    "path": "lua/autorun/load_slashui.lua",
+    "size": 2339,
+    "crc": 3341436396,
+    "sha256": "050150db89d1807d4156d7e438874a3e9dcf42bf21b1c7d7a2f7b14aef70fe6d"
+  },
+  {
+    "path": "lua/libraries/cl_outlines.lua",
+    "size": 15858,
+    "crc": 3681685777,
+    "sha256": "60882029e6a57f57ed3f2a70b589ab9ff20b5959b52b03603461656d19e4fa5b"
+  },
+  {
+    "path": "lua/libraries/cl_rndx.lua",
+    "size": 25998,
+    "crc": 3893850349,
+    "sha256": "6f3345004d1ff6f94f350636487dcca885ff263ad7a03b9b54e7ab3d49c643b3"
+  },
+  {
+    "path": "lua/libraries/cl_thermalvision.lua",
+    "size": 8386,
+    "crc": 2021038533,
+    "sha256": "d0795d7e6c7f4705f1def8a72b84c3d448cc9032151c16674a5570e85dc88bea"
+  },
+  {
+    "path": "lua/mainfolder/binds/cl_binds.lua",
+    "size": 13860,
+    "crc": 1485381250,
+    "sha256": "48c58b2eb714ec6fca6d13b343da21b37015018eb803ae8488d10876637995c4"
+  },
+  {
+    "path": "lua/mainfolder/binds/sh_binds.lua",
+    "size": 1072,
+    "crc": 1580808773,
+    "sha256": "2e08760e39accbd4684d5beba56e9f0153bca465127ebb5e818651b4bb31ed61"
+  },
+  {
+    "path": "lua/mainfolder/binds/sv_binds.lua",
+    "size": 16559,
+    "crc": 78310860,
+    "sha256": "b2aabccd14d96d83ae433fa211b4e5c9dce15703b44a42ad649969ba26e0bcca"
+  },
+  {
+    "path": "lua/mainfolder/cl_gifs.lua",
+    "size": 3628,
+    "crc": 3658002477,
+    "sha256": "30a6231db3746e7c68e919bed54d967d47437936356d478107f8438aba936890"
+  },
+  {
+    "path": "lua/mainfolder/effects/cl_effects.lua",
+    "size": 13255,
+    "crc": 4229884871,
+    "sha256": "d1d8f5ca81691d80263b9fa44fb50081793f06090804a4fe9b257d6bb525fd15"
+  },
+  {
+    "path": "lua/mainfolder/effects/sh_effects.lua",
+    "size": 3217,
+    "crc": 4156384993,
+    "sha256": "51187ee1a50f6d70fbf5fc704281c11b85c28fe5ee02cdd88054212fdf08aa1f"
+  },
+  {
+    "path": "lua/mainfolder/effects/sv_effects.lua",
+    "size": 6025,
+    "crc": 82370972,
+    "sha256": "ea25211946dc8bffec2d9347bb06a5be735f2607bfc2953994505da0c2b8a003"
+  },
+  {
+    "path": "lua/mainfolder/effects/sv_stats.lua",
+    "size": 1499,
+    "crc": 1254026169,
+    "sha256": "9cf77fd5a2beffecec51825e88e17255606e2f040d75246a1b2bc7e114414a46"
+  },
+  {
+    "path": "lua/slashui/elements/cl_avatar.lua",
+    "size": 1105,
+    "crc": 3945799614,
+    "sha256": "b41056447e15259c30ad7b5824f52ceed1a27d38185164c3fdc83f4f92d2fd54"
+  },
+  {
+    "path": "lua/slashui/elements/cl_binder.lua",
+    "size": 955,
+    "crc": 1664251880,
+    "sha256": "aa9a5fb5cd36ce052e8ba18364f39d545494590a7887a24c729dbc668ce1ad1e"
+  },
+  {
+    "path": "lua/slashui/elements/cl_button_v2.lua",
+    "size": 13329,
+    "crc": 865845716,
+    "sha256": "394146e01b092d0d4922cf7385052402eb9dbbbd03b5d8449f51b2d8a458a784"
+  },
+  {
+    "path": "lua/slashui/elements/cl_checkbox.lua",
+    "size": 1522,
+    "crc": 3131672393,
+    "sha256": "dc85ed3cdae2894d51246106686c3daad91d7477e11794f8f18964c358e54561"
+  },
+  {
+    "path": "lua/slashui/elements/cl_dropdown_popup.lua",
+    "size": 8582,
+    "crc": 269181970,
+    "sha256": "3acbe99e74b9c277e49c55f09a2e946ea39a47b0f31a804494751ed8122ecdfc"
+  },
+  {
+    "path": "lua/slashui/elements/cl_frame.lua",
+    "size": 3112,
+    "crc": 2442652000,
+    "sha256": "83f6aea88ef42e042a281721b1be12490b84c2a4e3ac837d3739c80234a653a8"
+  },
+  {
+    "path": "lua/slashui/elements/cl_modelpanel.lua",
+    "size": 1336,
+    "crc": 584945556,
+    "sha256": "ea1323777ff015938d7ccb3ed167ebda388a6714e54e56de42dda5d70d7dea21"
+  },
+  {
+    "path": "lua/slashui/elements/cl_panel.lua",
+    "size": 1357,
+    "crc": 2882403549,
+    "sha256": "2c9d6be8bd516f7fb151dc31e7cf60d5f9f7bec0c79974b5a665251622a5c55d"
+  },
+  {
+    "path": "lua/slashui/elements/cl_popup.lua",
+    "size": 891,
+    "crc": 2710667499,
+    "sha256": "99f0c407ad9fc5633ee2029255df5dfaa7ecec459a1f817d86bb5c2ddaf33382"
+  },
+  {
+    "path": "lua/slashui/elements/cl_query.lua",
+    "size": 6184,
+    "crc": 512873114,
+    "sha256": "ee58172ce270b1e1b8c756161a4a6cdfb0c2283f1fbf9c36ac40e331ecb30f67"
+  },
+  {
+    "path": "lua/slashui/elements/cl_query_single_button.lua",
+    "size": 2082,
+    "crc": 2345334656,
+    "sha256": "49e3d6479910d0a732e270f4ab3eda885be8b44578531c964e558f77e1248dd2"
+  },
+  {
+    "path": "lua/slashui/elements/cl_textentry.lua",
+    "size": 3247,
+    "crc": 1828123816,
+    "sha256": "ed4e24e627d33ad260b95d3c089fea44c61eaf37379d107be995fd698a2c43f8"
+  },
+  {
+    "path": "lua/slashui/elements/cl_wyvern_scrollbar.lua",
+    "size": 4437,
+    "crc": 1437201848,
+    "sha256": "e3256ee3a3d3d4e09121d34cff9e4a105425d0ae2cff193a1f403359fe776811"
+  },
+  {
+    "path": "lua/slashui/elements/cl_wyvern_scrollpanel.lua",
+    "size": 5097,
+    "crc": 3424065711,
+    "sha256": "bcc61136f728b0ce8d4e2753485110996188efcc15f399d9c97286e6dc3dc97e"
+  },
+  {
+    "path": "lua/slashui/libs/cl_animations.lua",
+    "size": 5465,
+    "crc": 3939844108,
+    "sha256": "c792628f6d7126a1b5fa89bdd859030ad1dfec02270b200aaf8e5a2154b87823"
+  },
+  {
+    "path": "lua/slashui/libs/cl_essentials.lua",
+    "size": 17486,
+    "crc": 3425320794,
+    "sha256": "52fedb39c56ec6f13c399d204ed123e6bd723ac322c5e215c44ae485df164254"
+  },
+  {
+    "path": "lua/slashui/libs/cl_icon_dl.lua",
+    "size": 3982,
+    "crc": 4050914383,
+    "sha256": "7a84c8b34b7651fbd37cca2a909bc9b6034c509ff857d050988e60fdebb9a268"
+  },
+  {
+    "path": "lua/slashui/libs/cl_promises.lua",
+    "size": 4318,
+    "crc": 3077830651,
+    "sha256": "92170a8c4cab2f23f2b772a3188766dbca20bd49f49e4cd3d7c5f9cfe6294b6f"
+  },
+  {
+    "path": "lua/slashui/libs/cl_shadows.lua",
+    "size": 3447,
+    "crc": 2406540404,
+    "sha256": "47b05875304ea88d07208be10d34f9fe7a2dd02275fbd3efe33cdcdb9cfd6065"
+  },
+  {
+    "path": "lua/slashui/libs/cl_wyvern.lua",
+    "size": 6593,
+    "crc": 406528577,
+    "sha256": "9cdf01e0a03695c7851a884da030fe1d7625417db64a06aea1c21917e1b55673"
+  },
+  {
+    "path": "lua/slashui/libs/particles/cl_effects.lua",
+    "size": 3881,
+    "crc": 3647765298,
+    "sha256": "4166816d7a04c3011daefe5ad144edbc670d0eb5f9bb86bc3eeb63657eada5ee"
+  },
+  {
+    "path": "lua/slashui/libs/particles/sv_effects.lua",
+    "size": 253,
+    "crc": 1993051995,
+    "sha256": "2bc350808286798b45cea49992e208f8329e45de45c4e2bdd571e5cd94df1c5e"
+  },
+  {
+    "path": "lua/slashui/libs/sh_essentials.lua",
+    "size": 5080,
+    "crc": 1558657248,
+    "sha256": "6647800192bc2cd7a01812cd0538a8a8a0a75ac4444de175192ca2d60b010ec7"
+  },
+  {
+    "path": "lua/slashui/libs/sh_time.lua",
+    "size": 695,
+    "crc": 4121978929,
+    "sha256": "7d4c312454b62f6ffe777ae8a97b2ac0567caef47b32cf7c33803c8af640f9ce"
+  },
+  {
+    "path": "lua/slashui/settings/sh_settings.lua",
+    "size": 832,
+    "crc": 989130971,
+    "sha256": "6a5251219fc4c3070249b92633245a720e638009e0795a883fc49ac683cf72eb"
+  },
+  {
+    "path": "materials/night_vision.png",
+    "size": 35993,
+    "crc": 889262064,
+    "sha256": "327bbcf5d57cdb4ce1b0d2de59ffe8e1883a47701ffa0e5fdf9b47542c9b69cf"
+  },
+  {
+    "path": "materials/slash/closebutton.png",
+    "size": 498,
+    "crc": 1495972141,
+    "sha256": "d3b1ee0c7641d3282a8bb696a79a9540637928279de706de4c93ad8bf8faaa58"
+  },
+  {
+    "path": "materials/slash/gradient_ltr.png",
+    "size": 12482,
+    "crc": 1827868907,
+    "sha256": "108905f7b7d783e762154521853038b543227204d0679098f9db34414e8c0b24"
+  },
+  {
+    "path": "materials/slash/loading.png",
+    "size": 9700,
+    "crc": 807717509,
+    "sha256": "201cf6410e404b5de954c877fc920df78d762e0557d5415bd20631a6f33b837c"
+  },
+  {
+    "path": "materials/slash/next.png",
+    "size": 456,
+    "crc": 1038001451,
+    "sha256": "f3888a5b10ff151f787a706a26e94e651d8d62d98e809e310c91b68351bc11ff"
+  },
+  {
+    "path": "materials/slash/search.png",
+    "size": 651,
+    "crc": 563042066,
+    "sha256": "1b585cdc26accf2aa25b13a1900c98276eb8451065ca1341629c0cc7c30d8f1a"
+  },
+  {
+    "path": "materials/slash/tick.png",
+    "size": 472,
+    "crc": 3179078040,
+    "sha256": "d5a5e45d4aeb3f48b5f7b03e80f4ba2614c998f78476db234c6179762a07ef49"
+  },
+  {
+    "path": "resource/fonts/montserrat-medium.ttf",
+    "size": 243180,
+    "crc": 3896907202,
+    "sha256": "421f26b23e2be6b98373d32acd3cb2897b154d4bf0a77d26534ce476e4cbed53"
+  }
+]
