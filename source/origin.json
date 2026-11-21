@@ -4,8 +4,8 @@
   "title": "Blastnit Core",
   "author": "Blastnit",
   "status": "extracted_verified",
-  "acquisition": "existing_steam_client_installation",
-  "steamcmd_download_completed": false,
+  "acquisition": "steamcmd",
+  "steamcmd_download_completed": true,
   "source_workshop_url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3593101298",
   "source_archive_sha256": "2dd2d01e7e1e186cba7ccca77bfcb667b525648c30977ffcc27cf7f5075ace2a",
   "gma_header": {

@@ -4,7 +4,7 @@ Origem: [Workshop 3593101298](https://steamcommunity.com/sharedfiles/filedetails
 
 Preparado para o projeto Sherlock HnS. Creditos e avisos dos arquivos originais foram preservados; nenhuma licenca nova foi aplicada ao conteudo de terceiros.
 
-Origem desta cópia: cache do cliente Steam. Extração com fastgmad. Conteúdo reconstruído com o gmad oficial e conferido por caminho e SHA-256. O manifest original está em `source/addon.original.json`. O manifest de publicação usa até duas tags e inclui todos os arquivos aceitos pelo gmad.
+Origem desta cópia: SteamCMD. Extração com fastgmad. Conteúdo reconstruído com o gmad oficial e conferido por caminho e SHA-256. O manifest original está em `source/addon.original.json`. O manifest de publicação usa até duas tags e inclui todos os arquivos aceitos pelo gmad.
 
 O Core contem `SlashModules.Jumpscare` e `SlashModules.JumpscareV2`, com dano fatal em `lua/mainfolder/binds/sv_binds.lua` (linhas 523 e 545 no snapshot importado).
 
