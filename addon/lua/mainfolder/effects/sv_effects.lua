@@ -5,14 +5,18 @@ function SlashModules.ApplyTargetEffect(victim, attacker, effect)
     local name = "blast_" .. effect.name
     if not SherlockHNS.Effects[name] then
         SherlockHNS.RegisterEffect(name, {
-            OnStart = function(ply, fx) ply:HangEffect(fx.data) end,
             OnEnd = function(ply, fx)
+                local active = ply:GetEffect(fx.data.name)
+                if not active then return end
+                if IsValid(active.trapEnt) then active.trapEnt:Remove() end
                 if ply:HasEffect(fx.data.name) then ply:TakeEffect(fx.data.name, 999) end
-                if IsValid(fx.data.trapEnt) then fx.data.trapEnt:Remove() end
             end,
         })
     end
-    return SherlockHNS.ApplyEffect(victim, name, effect.time, attacker, effect)
+    if not SherlockHNS.ApplyEffect(victim, name, effect.time, attacker, effect) then return false end
+    -- Reapplication extends the native effect without calling OnStart again.
+    -- Refresh the visual state and keep the current trap as its owner.
+    return victim:HangEffect(effect)
 end
 
 util.AddNetworkString("SlashModules.Effects.Sync")
