@@ -6,14 +6,13 @@ local defaultStats = {
 function SlashModules.UpdateStats(ply, instantly)
     local pill = ply.pk_pill_ent
 
-    if IsValid(pill) then
-        local pillForm = pill:GetPillForm()
+    if IsValid(pill) and pill.formTable then
         local pillTbl = pill.formTable
 
         ply.Stats = {
-            ms = pillTbl.moveSpeed.walk,
+            ms = (pillTbl.moveSpeed or {}).walk or 200,
             jp = pillTbl.jumpPower or defaultStats.jp,
-            rs = pillTbl.moveSpeed.run,
+            rs = (pillTbl.moveSpeed or {}).run or 500,
         }
     else
         ply.Stats = table.Copy(defaultStats)
@@ -41,6 +40,20 @@ function SlashModules.UpdateStats(ply, instantly)
     
     ply.Stats.ms = math.max(ply.Stats.ms, 1)
 
+    if SherlockHNS then
+        -- Runner movement belongs to the gamemode. The web restricts input
+        -- while it is attached, so releasing it restores the current speed.
+        if IsValid(pill) then
+            if ply:HasEffect("Spider Boost") then
+                pk_pills.setCostumeMoveSpeed(pill, ply.Stats.ms, ply.Stats.rs, nil, ply.Stats.jp)
+                pill.blastBoostApplied = true
+            elseif pill.blastBoostApplied then
+                pill.blastBoostApplied = nil
+                pk_pills.setCostumeMoveSpeed(pill)
+            end
+        end
+        return ply.Stats
+    end
     ply:SetWalkSpeed(ply.Stats.ms)
     ply:SetRunSpeed(ply.Stats.rs or ply.Stats.ms*2)
     ply:SetCrouchedWalkSpeed(.5)

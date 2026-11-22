@@ -6,7 +6,12 @@ function SlashModules.PillAbility(ply, id, force)
     local pillForm = pill:GetPillForm()
     local pillTbl = pill.formTable
 	
-	if isstring(id) then
+	if pillTbl.hnsBlastNames then
+        local ability = pillTbl.hnsBlastNames[id]
+        if ability then return SherlockHNS.Ability.Use(ply, ability) end
+        return
+    end
+    if isstring(id) then
 		for k, v in ipairs(pillTbl.abilities or {}) do
 			if v.name != id then continue end
 
@@ -151,7 +156,12 @@ function SlashModules.DisableAbility(ply, id, bool)
     local pillForm = pill:GetPillForm()
     local pillTbl = pill.formTable
 	
-	if isstring(id) then
+	if pillTbl.hnsBlastNames then
+        local ability = pillTbl.hnsBlastNames[id]
+        if ability then SherlockHNS.Ability.SetEnabled(ply, ability, bool) end
+        return
+    end
+    if isstring(id) then
 		for k, v in ipairs(pillTbl.abilities or {}) do
 			if v.name != id then continue end
 
@@ -189,7 +199,12 @@ function SlashModules.Jumpscare(ply)
 		end
 	end
 
-	if IsValid(entity) then
+	if SherlockHNS and IsValid(entity) and entity:IsPlayer() then
+        return pk_pills.playHNSJumpscare(ply, ent, entity, 0.5, {
+            animation = "jumpscare", sound = "jumpscare", camera = "PILLSJUMPCAM", offset = 100,
+        })
+    end
+    if IsValid(entity) then
 		local pill = ent:GetPuppet()
 
 		if entity:IsPlayer() then
@@ -287,9 +302,10 @@ function SlashModules.SearchForTarget(ply, params)
 	params = params or {}
 
 	local bl = table.Copy(params.bl or {})
-	table.Add(bl, {ply, pill, puppet})
+	
 
 	local puppet = pill.GetPuppet and pill:GetPuppet() or pill.GetPillAimEnt and pill:GetPillAimEnt()
+	table.Add(bl, {ply, pill, puppet})
 	local searchPos = ply:EyePos() + ply:GetForward()*25
 	
 	local valid = {}
@@ -388,8 +404,12 @@ function SlashModules.Attack(ply, attInfo)
 			pill.attacking = nil
 		end)
 
-		if !IsValid(target) or !target:Alive() then return end
-		target:TakeDamage(attInfo.damage or 1, ply)
+		if !IsValid(target) or (target:IsPlayer() and !target:Alive()) then return end
+		if SherlockHNS and target:IsPlayer() then
+            SherlockHNS.Kill(target, ply, { reason = "hit", inflictor = pill })
+        else
+            target:TakeDamage(attInfo.damage or 1, ply)
+        end
 	end)
 
 	for k, v in ipairs(attInfo.bloodImpacts or {}) do
@@ -407,7 +427,40 @@ function SlashModules.JumpscareV2(ply, jsInfo)
 	local target = jsInfo.target or SlashModules.SearchForTarget(ply)
 	if !IsValid(target) then return end
 
-	local receivers = {ply, target}
+	if SherlockHNS and target:IsPlayer() then
+        local playing = false
+        local function start()
+            playing = true
+            local packet = table.Copy(jsInfo)
+            packet.onEnd = nil
+            net.Start("SlashModules.PillJumpscare")
+            net.WriteBool(true)
+            net.WriteTable(packet)
+            net.WriteEntity(pill:GetPuppet())
+            net.Send({ply, target})
+            for _, delay in ipairs(jsInfo.bloodImpacts or {}) do
+                timer.Simple(delay, function()
+                    if playing and IsValid(target) then SlashModules.BloodEffect(target, jsInfo.nofade) end
+                end)
+            end
+        end
+        local function finish()
+            playing = false
+            for _, recipient in pairs({ply, target}) do
+                if IsValid(recipient) then
+                    net.Start("SlashModules.PillJumpscare")
+                    net.WriteBool(false)
+                    net.Send(recipient)
+                end
+            end
+        end
+        return pk_pills.playHNSJumpscare(ply, pill, target, jsInfo.time, {
+            animation = "jumpscare", sound = "jumpscare", offset = (jsInfo.pos or {}).forward or 50,
+            onStart = start, onEnd = finish,
+        })
+    end
+
+    local receivers = {ply, target}
 	local puppet = pill.GetPuppet and pill:GetPuppet() or pill.GetPillAimEnt and pill:GetPillAimEnt()
 	local ragdoll
 

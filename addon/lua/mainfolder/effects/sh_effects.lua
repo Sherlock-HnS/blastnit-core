@@ -62,7 +62,13 @@ SlashModules.Effects.Register("Plushtrapped", {
 
         if effTbl.lastHit <= CurTime() then
             effTbl.lastHit = CurTime() + 1
-            ply:TakeDamage(5) 
+            if SherlockHNS then
+                if IsValid(plush) and IsValid(plush:GetOwner()) then
+                    SherlockHNS.Kill(ply, plush:GetOwner(), { reason = "trap", inflictor = plush })
+                end
+            else
+                ply:TakeDamage(5)
+            end 
 
             if IsValid(ply.fakePlush) then
                 ply.fakePlush:Scratch()

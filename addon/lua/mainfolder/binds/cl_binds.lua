@@ -1,4 +1,4 @@
-RunConsoleCommand("pk_pill_cl_hidehud", 1)
+
 CreateClientConVar("blast_pill_overhead", "0", true)
 CreateClientConVar("blast_pill_cinematic", "0", true)
 
@@ -156,6 +156,10 @@ end)
 
 local LightingModeChanged = false
 hook.Add("PreRender", "fullbright", function()
+    if SherlockHNS then
+        local pill = LocalPlayer().pk_pill_ent
+        NIGHTVISION = IsValid(pill) and pill:GetNWBool("blast_night_vision", false)
+    end
     if !NIGHTVISION then return end
 
 	render.SetLightingMode(1)

@@ -1,5 +1,20 @@
 local meta = FindMetaTable("Player")
 
+function SlashModules.ApplyTargetEffect(victim, attacker, effect)
+    if not SherlockHNS then return victim:HangEffect(effect) end
+    local name = "blast_" .. effect.name
+    if not SherlockHNS.Effects[name] then
+        SherlockHNS.RegisterEffect(name, {
+            OnStart = function(ply, fx) ply:HangEffect(fx.data) end,
+            OnEnd = function(ply, fx)
+                if ply:HasEffect(fx.data.name) then ply:TakeEffect(fx.data.name, 999) end
+                if IsValid(fx.data.trapEnt) then fx.data.trapEnt:Remove() end
+            end,
+        })
+    end
+    return SherlockHNS.ApplyEffect(victim, name, effect.time, attacker, effect)
+end
+
 util.AddNetworkString("SlashModules.Effects.Sync")
 local function syncEffects(ply)
 	net.Start("SlashModules.Effects.Sync")
@@ -47,7 +62,7 @@ function meta:HangEffect(effecttbl)
 	end
 
 	if fulltbl.debuff then
-		hangtbl.time = hangtbl.time - hangtbl.time*self.Stats.debuffresist
+		hangtbl.time = hangtbl.time - hangtbl.time*((self.Stats or {}).debuffresist or 0)
 	end
 
 	hangtbl.stacks = math.Clamp(hangtbl.stacks or 1, 1, fulltbl.maxstacks or 1)
