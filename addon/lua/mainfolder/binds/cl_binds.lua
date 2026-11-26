@@ -253,11 +253,13 @@ local function restoreMomo()
     hook.Add("CalcView", "momo_calcview", function(ply, pos, ang, fov, nearZ, farZ)
         local ent = pk_pills.getMappedEnt(LocalPlayer())
 
-        if IsValid(ent) and ply:GetViewEntity() == ply then
+        if IsValid(ent) and ent.formTable and ply:GetViewEntity() == ply then
+            local ft = ent.formTable
+            local cam = ft.camera or {} -- pills sem camera usam os padrões
             local startpos
 
-            if ent.formTable.type == "phys" then
-                startpos = ent:LocalToWorld(ent.formTable.camera and ent.formTable.camera.offset or Vector(0, 0, 0))
+            if ft.type == "phys" then
+                startpos = ent:LocalToWorld(cam.offset or Vector(0, 0, 0))
             else
                 startpos = pos
             end
@@ -265,50 +267,43 @@ local function restoreMomo()
             if pk_pills.convars.cl_thirdperson:GetBool() then
                 local dist
 
-                local puppet = ent:GetPuppet()
-                if ent.formTable.camera.bone and IsValid(puppet) then
-                    local boneID = puppet:LookupBone(ent.formTable.camera.bone)
+                -- GetPuppet só existe em pills costume
+                local puppet = ent.GetPuppet and ent:GetPuppet() or nil
+                if cam.bone and IsValid(puppet) then
+                    local boneID = puppet:LookupBone(cam.bone)
                     if boneID then
                         local matrix = puppet:GetBoneMatrix(boneID)
                         if matrix then
-                            startpos = matrix:GetTranslation() + ent.formTable.camera.offset
+                            startpos = matrix:GetTranslation() + (cam.offset or vector_origin)
                         end
                     end
                 end
 
-                if ent.formTable.type == "phys" and ent.formTable.camera and ent.formTable.camera.distFromSize then
+                if ft.type == "phys" and cam.distFromSize then
                     dist = ent:BoundingRadius() * 5
                 else
-                    dist = ent.formTable.camera and ent.formTable.camera.dist or 100
+                    dist = cam.dist or 100
                 end
 
-                local underslung = ent.formTable.camera and ent.formTable.camera.underslung
                 local offset = LocalToWorld(
-                Vector(-dist, -(ent.formTable.camera.right or 0), underslung and -dist / 5 or dist / 5), Angle(0, 0, 0),
-                    Vector(0, 0, 0), ang)
+                    Vector(-dist, -(cam.right or 0), cam.underslung and -dist / 5 or dist / 5),
+                    Angle(0, 0, 0), Vector(0, 0, 0), ang)
 
                 local tr = util.TraceHull({
-                    start = startpos,
+                    start  = startpos,
                     endpos = startpos + offset,
                     filter = ent.camTraceFilter,
-                    mins = Vector(-5, -5, -5),
-                    maxs = Vector(5, 5, 5),
-                    mask = MASK_VISIBLE
+                    mins   = Vector(-5, -5, -5),
+                    maxs   = Vector(5, 5, 5),
+                    mask   = MASK_VISIBLE
                 })
 
-                local view = {}
-                view.origin = ent.formTable.noclip and (startpos + offset) or tr.HitPos
-                view.angles = ang
-                view.fov = fov
-                view.drawviewer = true
-                --[[else
-                local view = {}
-                view.origin = startpos
-                view.angles = ang
-                view.fov = fov
-                return view]]
-
-                return view
+                return {
+                    origin     = ft.noclip and (startpos + offset) or tr.HitPos,
+                    angles     = ang,
+                    fov        = fov,
+                    drawviewer = true,
+                }
             end
         end
     end)
@@ -355,10 +350,10 @@ net.Receive("SlashModules.PillJumpscare", function()
 
                 local modPos = jsInfo.pos or {}
                 local basePos = pill:GetPos() + pill:GetForward() * (modPos.forward or 50) +
-                pill:GetUp() * (modPos.up or -25) + pill:GetRight() * (modPos.right or 0)
+                    pill:GetUp() * (modPos.up or -25) + pill:GetRight() * (modPos.right or 0)
 
                 local pos = basePos + Vector(0, 0, max.z) * (2 + .5 * transitionProgress) +
-                orbAng:Forward() * (500 - 350 * transitionProgress)
+                    orbAng:Forward() * (500 - 350 * transitionProgress)
                 local tr = util.TraceLine({
                     start = ply:EyePos(),
                     endpos = pos,
