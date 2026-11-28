@@ -72,17 +72,19 @@ end
 
 local visPlys = {}
 
-hook.Add("PostDrawTranslucentRenderables", "EffectsVisual", function()
+hook.Add("PostDrawTranslucentRenderables", "EffectsVisual", function(bDepth, bSkybox)
+    -- Não redesenha players nas passadas de profundidade e de skybox.
+    if bDepth or bSkybox then return end
+
     local lPly = LocalPlayer()
     local pill = lPly.pk_pill_ent
 
-    local pillForm = pill and pill:GetPillForm()
-    local pillTbl = pill and pill.formTable
+    local pillTbl = IsValid(pill) and pill.formTable
 
     if IN_JUMPSCARE then return end
     
 	local puppet = IsValid(pill) and (pill.GetPuppet and pill:GetPuppet() or pill.GetPillAimEnt and pill:GetPillAimEnt())
-    if IsValid(puppet) and pillTbl.noclip then
+    if IsValid(puppet) and pillTbl and pillTbl.noclip then
         cam.IgnoreZ(true)
         render.SetBlend(.5)
         puppet:DrawModel()
@@ -111,7 +113,8 @@ hook.Add("PostDrawTranslucentRenderables", "EffectsVisual", function()
                 SlashModules.GlowModel(ply, ply:GetEffect("Highlighted").color or color_white)
                 ply:DrawModel()
                 cam.IgnoreZ(false)
-            else
+            elseif visionColorAlpha.a > 0 then
+                -- Com alpha 0 (visão noturna desligada) o redesenho era invisível.
                 SlashModules.GlowModel(ply, visionColorAlpha)
                 ply:DrawModel()
             end
@@ -176,8 +179,9 @@ hook.Add("RenderScreenspaceEffects", "StatusEffects", function()
     
         local w, h = ScrW(), ScrH()
     
-        for i = 1, 10 do
-            blur:SetFloat("$blur", i * 0.33*fade)
+        -- 4 passadas com a mesma força máxima (3.3); eram 10 por frame.
+        for i = 1, 4 do
+            blur:SetFloat("$blur", i * 0.825*fade)
             blur:Recompute()
             render.UpdateScreenEffectTexture()
             surface.DrawTexturedRect(0, 0, w, h)
@@ -364,22 +368,4 @@ net.Receive("SlashModules.Effects.Sync", function()
 
     if !IsValid(ply) then return end
     ply.Effects = net.ReadTable() or {}
-    
-    local pill = ply.pk_pill_ent
-    if IsValid(pill) then
-        local pillForm = pill:GetPillForm()
-        local pillTbl = pill.formTable
-        
-        local puppet = pill.GetPuppet and pill:GetPuppet() or pill.GetPillAimEnt and pill:GetPillAimEnt()
-
-        if !IsValid(puppet) then return end
-
-        if ply:HasEffect("Spider Camo") then
-            timer.Simple(1, function()
-                puppet:SetColor(ColorAlpha(color_white, 35))
-            end)
-        else
-            puppet:SetColor(color_white)
-        end
-    end
 end)

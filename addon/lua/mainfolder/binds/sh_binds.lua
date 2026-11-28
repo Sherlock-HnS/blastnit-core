@@ -78,5 +78,9 @@ hook.Add("SetupMove", "BlastHNSWeb", function(ply, mv)
     mv:SetForwardSpeed(0)
     mv:SetSideSpeed(0)
     mv:SetUpSpeed(0)
+    -- Sem tirar o IN_JUMP, cada aperto de espaço dava um pulinho e, com a
+    -- velocidade zerada no tick seguinte, a vítima ficava flutuando. O KeyPress
+    -- do servidor (usado para escapar) não é afetado.
+    mv:SetButtons(bit.band(mv:GetButtons(), bit.bnot(IN_JUMP)))
     mv:SetVelocity(vector_origin)
 end)

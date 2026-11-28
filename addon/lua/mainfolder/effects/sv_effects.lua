@@ -27,13 +27,18 @@ local function syncEffects(ply)
 	net.Broadcast()
 end
 
+-- Nick não é único (e pode mudar): dois players com o mesmo nome dividiam o
+-- timer, e o efeito de um deles nunca expirava.
+local function EffectTimer(ply, name)
+	return "SlashModules.Effect." .. ply:UserID() .. "." .. name
+end
+
 local function ResetEffect(ply, name)
 	local fulltbl = SlashModules.Effects.List[name]
 
 	if !fulltbl then return end
 
-	local tname = ply:Name().." - "..name
-	timer.Remove(tname)
+	timer.Remove(EffectTimer(ply, name))
 
 	local effect = ply.Effects[name]
 
@@ -80,7 +85,7 @@ function meta:HangEffect(effecttbl)
 	if fulltbl.tdelay and fulltbl.tfunc then
 		fulltbl.tfunc(self, self.Effects[effname])
 
-		local tname = self:Name().." - "..effname
+		local tname = EffectTimer(self, effname)
 		timer.Create(tname, fulltbl.tdelay or 1, 0, function()
 			if !IsValid(self) then timer.Remove(tname) return end
 			
@@ -93,7 +98,7 @@ function meta:HangEffect(effecttbl)
 			end
 		end)
 	else
-		local tname = self:Name().." - "..effname
+		local tname = EffectTimer(self, effname)
 		timer.Create(tname, 1, 0, function()
 			if !IsValid(self) then timer.Remove(tname) return end
 	
@@ -141,7 +146,7 @@ function meta:FreezeEffect(name, bool)
 
 	if !fulltbl then return end
 	if !self.Effects[name] then return end
-	local tname = self:Name().." - "..name
+	local tname = EffectTimer(self, name)
 	
 	local hangtbl = self.Effects[name]
 
